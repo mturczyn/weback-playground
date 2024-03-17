@@ -1,0 +1,19 @@
+{
+    "name": "webpack-playground",
+    "version": "1.0.0",
+    "description": "Playground to test out webpack",
+    "main": "index.js",
+    "scripts": {
+        "test": "test",
+        "build": "webpack --mode production"
+    },
+    "author": "Michał Turczyn",
+    "license": "ISC",
+    "devDependencies": {
+        "css-loader": "^6.10.0",
+        "html-webpack-plugin": "^5.6.0",
+        "style-loader": "^3.3.4",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4"
+    }
+}
