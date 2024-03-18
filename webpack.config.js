@@ -5,12 +5,28 @@ module.exports = {
     output: {
         path: __dirname + '/dist',
         filename: 'bundle.js',
+        environment: {
+            arrowFunction: false,
+        },
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(?:js|mjs|cjs)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            ['@babel/preset-env', { targets: { chrome: 40 } }],
+                            // ['@babel/preset-env', { targets: 'defaults' }],
+                        ],
+                    },
+                },
             },
         ],
     },
