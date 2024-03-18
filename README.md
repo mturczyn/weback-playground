@@ -37,3 +37,36 @@ In order to also prevent that, we need to set `targets` option for `babel-loader
     },
 },
 ```
+
+## Bundling CSS
+
+Firstly, I have used `css-loader` and `style-laoder`. The `style-ladoer` library was used to inject ouptput of `css-loader` into JS (as `style` element).
+
+**`webpack.config.js`**:
+
+```
+{
+    test: /\.css$/,
+    use: ['style-loader', 'css-loader'],
+},
+```
+
+There is also another way, we can switch `style-loader` to `mini-css-extract-plugin` to have separate CSS files as output.
+
+**`webpack.config.js`**
+
+```
+{
+    test: /\.css$/,
+    use: [MiniCssExtractPlugin.loader, 'css-loader'],
+},
+```
+
+Also plugins need to be updated:
+
+```
+plugins: [
+    ...
+    new MiniCssExtractPlugin(),
+],
+```
