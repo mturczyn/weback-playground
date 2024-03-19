@@ -2,11 +2,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ConsoleLogOnBuildWebpackPlugin = require('./ConsoleLogOnBuildWebpackPlugin')
 const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
     entry: { index: './src/index.js', otherPage: './src/otherPage.js' },
     output: {
-        path: __dirname + '/dist',
+        path: path.resolve(__dirname, 'dist'),
         filename: 'bundle[name].js',
         environment: {
             // arrowFunction: false,
