@@ -7,7 +7,7 @@ module.exports = {
         path: __dirname + '/dist',
         filename: 'bundle[name].js',
         environment: {
-            arrowFunction: false,
+            // arrowFunction: false,
         },
     },
     module: {

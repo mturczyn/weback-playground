@@ -70,3 +70,43 @@ plugins: [
     new MiniCssExtractPlugin(),
 ],
 ```
+
+## Multi page applicaitons
+
+[Multi-Page Application Webpack docs.](https://webpack.js.org/concepts/entry-points/#multi-page-application)
+
+We can speicify multiple entry points, such as
+
+```
+module.exports = {
+  entry: {
+    index: './src/index.js',
+    otherPage: './src/otherPage.js'
+  },
+};
+```
+
+In order to complete configuration, to prevent multiple outputs writing to the same file (which results in webpack's error), we need also to define:
+
+```
+output: {
+    ...
+    filename: 'bundle[name].js',
+    ...
+},
+```
+
+Later, we can also specify which HTML files will be bundled with what JS bundles by specifying `chunks` matching `entry` entries:
+
+```
+new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: 'src/index.html',
+    chunks: ['index'],
+}),
+new HtmlWebpackPlugin({
+    filename: 'otherPage.html',
+    template: 'src/otherPage.html',
+    chunks: ['otherPage'],
+}),
+```
