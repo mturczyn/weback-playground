@@ -4,8 +4,29 @@ const ConsoleLogOnBuildWebpackPlugin = require('./ConsoleLogOnBuildWebpackPlugin
 const webpack = require('webpack')
 const path = require('path')
 
+const index = 'index'
+const otherPage = 'otherPage'
+
+const entries = { [index]: './src/index.js', [otherPage]: './src/otherPage.js' }
+
+const plugins = [
+    new ConsoleLogOnBuildWebpackPlugin(),
+    new webpack.ProgressPlugin(),
+    new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'src/index.html',
+        chunks: [index],
+    }),
+    new HtmlWebpackPlugin({
+        filename: 'otherPage.html',
+        template: 'src/otherPage.html',
+        chunks: [otherPage],
+    }),
+    new MiniCssExtractPlugin(),
+]
+
 module.exports = {
-    entry: { index: './src/index.js', otherPage: './src/otherPage.js' },
+    entry: entries,
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle[name].js',
@@ -49,19 +70,5 @@ module.exports = {
             },
         ],
     },
-    plugins: [
-        new ConsoleLogOnBuildWebpackPlugin(),
-        new webpack.ProgressPlugin(),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: 'src/index.html',
-            chunks: ['index'],
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'otherPage.html',
-            template: 'src/otherPage.html',
-            chunks: ['otherPage'],
-        }),
-        new MiniCssExtractPlugin(),
-    ],
+    plugins: plugins,
 }
