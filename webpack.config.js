@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ConsoleLogOnBuildWebpackPlugin = require('./ConsoleLogOnBuildWebpackPlugin')
+const webpack = require('webpack')
 
 module.exports = {
     entry: { index: './src/index.js', otherPage: './src/otherPage.js' },
@@ -21,8 +23,13 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                // Different ways to specify loaders
-                use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader'],
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    // Different ways to specify loaders
+                    // { loader: MiniCssExtractPlugin.loader },
+                    // { loader: 'css-loader' },
+                ],
             },
             {
                 test: /\.(?:js|mjs|cjs)$/,
@@ -42,6 +49,8 @@ module.exports = {
         ],
     },
     plugins: [
+        new ConsoleLogOnBuildWebpackPlugin(),
+        new webpack.ProgressPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'src/index.html',
