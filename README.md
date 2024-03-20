@@ -110,3 +110,14 @@ new HtmlWebpackPlugin({
     chunks: ['otherPage'],
 }),
 ```
+
+## Code splitting
+
+In order to have more performant initial load, we may reduce general bundle and split it into chunks that will load later. Best example is use of React's `lazy` function:
+
+```
+const MyComponent = lazy(() => import('MyComponent'))
+```
+
+It makes that code for the component is loaded in the client's browser once needed, not in initial bundle. It has its reflection in how bundles are created - when using code splitting (with React's `lazy` for example), bundles are split into multiple files that are lazily loaded. Left picture presents code-splitted build, picture on the right does not use this optimization:
+![code splitting in react - bundle](code-splitting-in-react.png)
