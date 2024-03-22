@@ -4,7 +4,111 @@ Repository to try out webpack.
 
 Followed resources on [webpack docs](https://webpack.js.org/concepts).
 
-To start this repo's project I have used simple tutorial on [Webpack for Static Sites](https://medium.com/riow/webpack-for-static-sites-9cbfd8363abb).
+To start this repo's project I have used simple tutorial on [Webpack for Static Sites](https://medium.com/riow/webpack-for-static-sites-9cbfd8363abb). Here's the essence
+
+1. Create project directory and navigate to it:
+
+    ```
+    New-Item -Type Directory project
+    cd ./project
+    ```
+
+2. Initialize npm
+
+    ```
+    npm init
+    ```
+
+3. Install webpack
+
+    ```
+    npm install --save-dev webpack
+    ```
+
+4. Install `css-loader` and `style-loader` libraries (to compile CSS):
+
+    ```
+    npm install --save-dev css-loader style-loader
+    ```
+
+    `css-loader` transforms CSS to a JS module.  
+    `style-loader` injects the CSS, exported as JS module, into JS as `<style>` element.
+
+5. Install webpack
+
+    ```
+    npm install --save-dev webpack
+    ```
+
+6. Create `dist` directory that will hold ouput of webpack - bundled JS file:
+
+    ```
+    New-Item -Type Directory dist
+    ```
+
+7. Define script in `package.json` to build (compile) our code:
+
+    ```
+    "build": "webpack --mode production"
+    ```
+
+8. Create `app.js` (our entry point for compilation) in `public` directory.
+
+    ```
+    New-Item -Type Directory public
+    cd ./public
+    "" >> app.js
+    ```
+
+9. Create `main.js` file in `public/js` directory and include as dependency in `app.js`:
+
+    ```
+    "require('./js/main.js');" >> app.js
+    ```
+
+10. Create the `main.css` file in `public/css` directory and include as dependency in `public/js/main.js` file:
+
+    ```
+    require('../css/main.css');
+    ```
+
+    By now, files structure should be:
+
+    ```
+    /
+        dist/
+        public/
+            app.js
+            js/
+                main.js
+            css/
+                main.css
+    ```
+
+11. Create webpack configuration file in root directory. Filename should be `webpack.config.js` and its content should be:
+    ```
+    module.exports = {
+        entry: './public/app.js',
+        output: {
+            path: __dirname + '/dist',
+            filename: 'bundle.js'
+        },
+        module: {
+            rules: [{
+                test: /\.css$/,
+                loaders: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }]
+        }
+    }
+    ```
+12. Now, run build script:
+    ```
+    npm run build
+    ```
+    This will minify JS and CSS to `bundle.js`.
 
 ## Babel
 
